@@ -130,6 +130,23 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
         }
     }
 
+    public User getUserFromLoginAndPassword(String login, String password){
+        User user = null;
+        if (login!=null && password!=null) {
+            startTransaction();
+            try {
+                user = dtoUser.getUserFromLoginAndPassword(login, password);
+            } catch (SQLException e) {
+                System.out.println("Error getUserFromLoginAndPassword from DB");
+                e.printStackTrace();
+            }
+            commit();
+        }else {
+            System.out.println("Error User or Login NULL.");
+        }
+        return user;
+    }
+
     @Override
     public User modificationLength(User user) {
         if (user != null) {

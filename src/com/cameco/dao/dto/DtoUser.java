@@ -2,6 +2,8 @@ package com.cameco.dao.dto;
 
 import com.cameco.db.DbConstants;
 import com.cameco.db.InitTextStatement;
+import com.cameco.entity.User;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -37,6 +39,8 @@ public class DtoUser {
         InitTextStatement statement = new InitTextStatement();
         mysqlPrepareStatement.put("isLogin", connection.prepareStatement(statement.getMysqlUserIsLogin()));
         mysqlPrepareStatement.put("isPrefix", connection.prepareStatement(statement.getMysqlUserIsPrefix()));
+        mysqlPrepareStatement.put("getUserFromLoginAndPassword",
+                connection.prepareStatement(statement.getMysqlUserGetForLoginAndPassword()));
     }
 
     public void closePrepareStatement() throws SQLException {
@@ -57,6 +61,27 @@ public class DtoUser {
         pst.setString(1,prefix);
         ResultSet rs = pst.executeQuery();
         return rs.next();
+    }
+
+    public User getUserFromLoginAndPassword(String login, String password) throws SQLException {
+        PreparedStatement pst = mysqlPrepareStatement.get("getUserFromLoginAndPassword");
+        pst.setString(1,login);
+        pst.setString(2, DigestUtils.md5Hex(password));
+        ResultSet rs = pst.executeQuery();
+        User user = null;
+        if (rs.next()) {
+            user = new User();
+            user.setId(rs.getLong("id"));
+            user.setRole(rs.getInt("role"));
+            user.setDateReg(rs.getDate("date_reg"));
+            user.setDateActivation(rs.getDate("date_activ"));
+            user.setPrefix(rs.getString("prefix"));
+            user.setE_mail(rs.getString("e_mail"));
+            user.setName(rs.getString("name"));
+            user.setFullName(rs.getString("full_name"));
+            user.setPackage_id(rs.getLong("package_id"));
+        }
+        return user;
     }
 
 }

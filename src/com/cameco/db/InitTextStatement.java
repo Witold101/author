@@ -31,6 +31,7 @@ public class InitTextStatement {
     private String mysqlUserGet;
     private String mysqlUserIsLogin;
     private String mysqlUserIsPrefix;
+    private String mysqlUserGetForLoginAndPassword;
 
 
     public InitTextStatement() {
@@ -134,5 +135,11 @@ public class InitTextStatement {
     public String getMysqlDropPackageTable() {
         this.mysqlDropPackageTable = "DROP TABLE `" + getPackageTable() + "`;";
         return mysqlDropPackageTable;
+    }
+
+    public String getMysqlUserGetForLoginAndPassword() {
+        this.mysqlUserGetForLoginAndPassword = "SELECT * FROM " + getUsersTable() +
+                " where login=? and password=? limit 1;";
+        return mysqlUserGetForLoginAndPassword;
     }
 }

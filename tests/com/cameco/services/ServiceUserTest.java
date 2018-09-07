@@ -139,6 +139,47 @@ public class ServiceUserTest {
         new ServiceTablesInitDrop(connection).dropTable("");
     }
 
+    @Test
+    public void getUserFromLoginAndPassword(){
+        new ServiceTablesInitDrop(connection).initTable("");
+
+        PackageSoft packageSoft = new PackageSoft();
+        packageSoft.setKey(8);
+        packageSoft.setName(" Store     ");
+        packageSoft.setInfo(" Пакет включает в себя управление складом. Существует только количественный учет. ");
+        new ServicePackageSoft(connection).add(packageSoft);
+
+        User user = new User();
+        user.setLogin("Login33");
+        user.setPassword("Пароль");
+        user.setDateActivation(new Date(100, 0, 21));
+        user.setDateReg(new Date(110, 2, 3));
+        user.setRole(22);
+        user.setE_mail("info@101.by");
+        user.setName("Виталий ");
+        user.setFullName("Wasilus");
+        user.setPackage_id(packageSoft.getId());
+        new ServiceUser(connection).add(user);
+
+        User userTest = new ServiceUser(connection).getUserFromLoginAndPassword("Login33","Пароль");
+        assertNull(userTest.getLogin());
+        assertNull(userTest.getPassword());
+        assertEquals(user.getDateActivation(), userTest.getDateActivation());
+        assertEquals(user.getDateReg(), userTest.getDateReg());
+        assertEquals(user.getRole(), userTest.getRole());
+        assertEquals(user.getId(), userTest.getId());
+        assertEquals(user.getPrefix(), userTest.getPrefix());
+        assertEquals(user.getE_mail(), userTest.getE_mail());
+        assertEquals(user.getName(), userTest.getName());
+        assertEquals(user.getFullName(), userTest.getFullName());
+        assertEquals(user.getPackage_id(), userTest.getPackage_id());
+
+        assertNull(new ServiceUser(connection).getUserFromLoginAndPassword("Login","Паро"));
+
+        new ServiceTablesInitDrop(connection).dropTable("");
+
+    }
+
 
     public void closeTests() {
         try {
