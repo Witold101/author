@@ -17,7 +17,7 @@ public class ServicePackageSoftTest {
 
     @AfterClass
     public static void connectionClose(){
-        //new ServiceTablesInitDrop(connection).dropTable(prefix);
+        new ServiceTablesInitDrop(connection).dropTable("");
         try {
             connection.close();
         } catch (SQLException e) {
@@ -76,5 +76,20 @@ public class ServicePackageSoftTest {
     @Test
     public void get() {
         add();
+    }
+
+    @Test
+    public void getFoKey(){
+        PackageSoft packageSoft = new PackageSoft();
+        packageSoft.setKey(8);
+        packageSoft.setName(" Store     ");
+        packageSoft.setInfo(" Пакет включает в себя управление складом. Существует только количественный учет. ");
+        new ServicePackageSoft(connection).add(packageSoft);
+        PackageSoft packageSoftTest = new ServicePackageSoft(connection).getFoKey(8);
+        assertEquals(packageSoft.getInfo(),packageSoftTest.getInfo());
+        assertEquals(packageSoft.getName(),packageSoftTest.getName());
+        assertEquals(packageSoft.getKey(),packageSoftTest.getKey());
+        assertEquals(packageSoft.getId(),packageSoftTest.getId());
+        assertNull(new ServicePackageSoft(connection).getFoKey(10));
     }
 }

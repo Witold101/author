@@ -24,6 +24,7 @@ public class InitTextStatement {
     private String mysqlPackageDell;
     private String mysqlPackageEdit;
     private String mysqlPackageGet;
+    private String mysqlPackageGetForKey;
 
     private String mysqlUserAdd;
     private String mysqlUserDell;
@@ -141,5 +142,10 @@ public class InitTextStatement {
         this.mysqlUserGetForLoginAndPassword = "SELECT * FROM " + getUsersTable() +
                 " where login=? and password=? limit 1;";
         return mysqlUserGetForLoginAndPassword;
+    }
+
+    public String getMysqlPackageGetForKey() {
+        this.mysqlPackageGetForKey = "SELECT * FROM " + getPackageTable() + " where `key`=? limit 1;";
+        return mysqlPackageGetForKey;
     }
 }

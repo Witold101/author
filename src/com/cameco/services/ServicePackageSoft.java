@@ -2,6 +2,7 @@ package com.cameco.services;
 
 import by.vistar.comeco.interfaces.DaoService;
 import by.vistar.comeco.interfaces.ServiceSetup;
+import com.cameco.dao.dto.DtoPackageSoft;
 import com.cameco.db.DbConstants;
 import com.cameco.dao.DaoPackageSoft;
 import com.cameco.entity.PackageSoft;
@@ -12,14 +13,17 @@ import java.sql.SQLException;
 public class ServicePackageSoft extends ServiceTablesInitDrop implements DaoService<Long, PackageSoft>, ServiceSetup<PackageSoft> {
 
     private DaoPackageSoft daoPackageSoft;
+    private DtoPackageSoft dtoPackageSoft;
     Connection connection;
 
     public ServicePackageSoft(Connection connection) {
         super(connection);
         this.connection=connection;
         daoPackageSoft = DaoPackageSoft.getInstance();
+        dtoPackageSoft = DtoPackageSoft.getInstance();
         try {
             this.daoPackageSoft.initPrepareStatement(connection);
+            this.dtoPackageSoft.initPrepareStatement(connection);
         } catch (SQLException e) {
             System.out.println("Error initPrepareStatement.");
             e.printStackTrace();
@@ -83,6 +87,21 @@ public class ServicePackageSoft extends ServiceTablesInitDrop implements DaoServ
                 packageSoft = daoPackageSoft.get(id);
             } catch (SQLException e) {
                 System.out.println("Error get PACKAGE_SOFT in DB.");
+                e.printStackTrace();
+            }
+            commit();
+        }
+        return packageSoft;
+    }
+
+    public PackageSoft getFoKey(Integer key){
+        PackageSoft packageSoft = null;
+        if (key !=null){
+            startTransaction();
+            try {
+                packageSoft=dtoPackageSoft.getPackageFoKey(key);
+            } catch (SQLException e) {
+                System.out.println("Error get PackageSoftFoKey in DB.");
                 e.printStackTrace();
             }
             commit();
