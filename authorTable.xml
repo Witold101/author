@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="author" default="all">
+  
+  
+  <property file="authorTable.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.ane"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.arquillian_tomcat_embedded_6.x_container_adapter:1.0.1.final.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-depchain/2.0.0/shrinkwrap-descriptors-depchain-2.0.0.pom"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-depchain/2.2.6/shrinkwrap-resolver-depchain-2.2.6.pom"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/shrinkwrap-depchain/1.2.6/shrinkwrap-depchain-1.2.6.pom"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/18.0/guava-18.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.2/commons-io-2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/enterprise/cdi-api/1.0/cdi-api-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-aether-provider/3.2.5/maven-aether-provider-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-model-builder/3.2.5/maven-model-builder-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-model/3.2.5/maven-model-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-repository-metadata/3.2.5/maven-repository-metadata-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-settings-builder/3.2.5/maven-settings-builder-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/maven-settings/3.2.5/maven-settings-3.2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/wagon/wagon-file/2.6/wagon-file-2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/wagon/wagon-http-lightweight/2.6/wagon-http-lightweight-2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/wagon/wagon-http-shared/2.6/wagon-http-shared-2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/maven/wagon/wagon-provider-api/2.6/wagon-provider-api-2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/plexus/plexus-compiler-api/2.3/plexus-compiler-api-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/plexus/plexus-compiler-javac/2.3/plexus-compiler-javac-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/plexus/plexus-utils/3.0.20/plexus-utils-3.0.20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-connector-basic/1.0.0.v20140518/aether-connector-basic-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-impl/1.0.0.v20140518/aether-impl-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-spi/1.0.0.v20140518/aether-spi-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-transport-wagon/1.0.0.v20140518/aether-transport-wagon-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/config/arquillian-config-api/1.3.0.Final/arquillian-config-api-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/config/arquillian-config-impl-base/1.3.0.Final/arquillian-config-impl-base-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-container-spi/1.3.0.Final/arquillian-container-spi-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-container-test-api/1.3.0.Final/arquillian-container-test-api-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-container-test-impl-base/1.3.0.Final/arquillian-container-test-impl-base-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-container-test-spi/1.3.0.Final/arquillian-container-test-spi-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-tomcat-common/1.0.1.Final/arquillian-tomcat-common-1.0.1.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-tomcat-embedded-6/1.0.1.Final/arquillian-tomcat-embedded-6-1.0.1.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/container/arquillian-tomcat-embedded-common/1.0.1.Final/arquillian-tomcat-embedded-common-1.0.1.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/core/arquillian-core-api/1.3.0.Final/arquillian-core-api-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/core/arquillian-core-spi/1.3.0.Final/arquillian-core-spi-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/protocol/arquillian-protocol-servlet/1.3.0.Final/arquillian-protocol-servlet-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/test/arquillian-test-api/1.3.0.Final/arquillian-test-api-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/test/arquillian-test-spi/1.3.0.Final/arquillian-test-spi-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/testenricher/arquillian-testenricher-cdi/1.3.0.Final/arquillian-testenricher-cdi-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/testenricher/arquillian-testenricher-initialcontext/1.3.0.Final/arquillian-testenricher-initialcontext-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/arquillian/testenricher/arquillian-testenricher-resource/1.3.0.Final/arquillian-testenricher-resource-1.3.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/container/shrinkwrap-container-tomcat-60/1.0.0-beta-1/shrinkwrap-container-tomcat-60-1.0.0-beta-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-api-base/2.0.0/shrinkwrap-descriptors-api-base-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-api-javaee/2.0.0/shrinkwrap-descriptors-api-javaee-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-api-jboss/2.0.0/shrinkwrap-descriptors-api-jboss-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-impl-base/2.0.0/shrinkwrap-descriptors-impl-base-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-impl-javaee/2.0.0/shrinkwrap-descriptors-impl-javaee-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-impl-jboss/2.0.0/shrinkwrap-descriptors-impl-jboss-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/descriptors/shrinkwrap-descriptors-spi/2.0.0/shrinkwrap-descriptors-spi-2.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-api-maven-archive/2.2.6/shrinkwrap-resolver-api-maven-archive-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-api-maven/2.2.6/shrinkwrap-resolver-api-maven-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-api/2.2.6/shrinkwrap-resolver-api-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-impl-maven-archive/2.2.6/shrinkwrap-resolver-impl-maven-archive-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-impl-maven/2.2.6/shrinkwrap-resolver-impl-maven-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-spi-maven-archive/2.2.6/shrinkwrap-resolver-spi-maven-archive-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-spi-maven/2.2.6/shrinkwrap-resolver-spi-maven-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/resolver/shrinkwrap-resolver-spi/2.2.6/shrinkwrap-resolver-spi-2.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/shrinkwrap-api/1.0.0-beta-1/shrinkwrap-api-1.0.0-beta-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/shrinkwrap-impl-base/1.2.6/shrinkwrap-impl-base-1.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/shrinkwrap/shrinkwrap-spi/1.2.6/shrinkwrap-spi-1.2.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jsoup/jsoup/1.7.2/jsoup-1.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar"/>
+  </path>
+  
+  <path id="library.commons-codec:commons-codec:1.9.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.9/commons-codec-1.9.jar"/>
+  </path>
+  
+  <path id="library.lombok.classpath">
+    <pathelement location="${basedir}/../../Downloads/lombok.jar"/>
+  </path>
+  
+  <path id="library.mysql:mysql-connector-java:5.1.46.classpath">
+    <pathelement location="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module author -->
+  
+  <dirname property="module.author.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.author" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.author" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.author" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.author" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="author.output.dir" value="${module.author.basedir}/out/production/author"/>
+  <property name="author.testoutput.dir" value="${module.author.basedir}/out/test/author"/>
+  
+  <path id="author.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="author.module.production.classpath">
+    <path refid="${module.jdk.classpath.author}"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.arquillian_tomcat_embedded_6.x_container_adapter:1.0.1.final.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.46.classpath"/>
+    <path refid="library.commons-codec:commons-codec:1.9.classpath"/>
+  </path>
+  
+  <path id="author.runtime.production.module.classpath">
+    <pathelement location="${author.output.dir}"/>
+    <path refid="library.lombok.classpath"/>
+    <path refid="library.arquillian_tomcat_embedded_6.x_container_adapter:1.0.1.final.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.46.classpath"/>
+    <path refid="library.commons-codec:commons-codec:1.9.classpath"/>
+  </path>
+  
+  <path id="author.module.classpath">
+    <path refid="${module.jdk.classpath.author}"/>
+    <pathelement location="${author.output.dir}"/>
+    <path refid="library.lombok.classpath"/>
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.12/junit-4.12.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+    <path refid="library.arquillian_tomcat_embedded_6.x_container_adapter:1.0.1.final.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.46.classpath"/>
+    <path refid="library.commons-codec:commons-codec:1.9.classpath"/>
+  </path>
+  
+  <path id="author.runtime.module.classpath">
+    <pathelement location="${author.testoutput.dir}"/>
+    <pathelement location="${author.output.dir}"/>
+    <path refid="library.lombok.classpath"/>
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.12/junit-4.12.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+    <path refid="library.arquillian_tomcat_embedded_6.x_container_adapter:1.0.1.final.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.46.classpath"/>
+    <path refid="library.commons-codec:commons-codec:1.9.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.author">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.author">
+    <patternset refid="excluded.from.module.author"/>
+  </patternset>
+  
+  <path id="author.module.sourcepath">
+    <dirset dir="${module.author.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="author.module.test.sourcepath">
+    <dirset dir="${module.author.basedir}">
+      <include name="tests"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.author" depends="compile.module.author.production,compile.module.author.tests" description="Compile module author"/>
+  
+  <target name="compile.module.author.production" depends="register.custom.compilers" description="Compile module author; production classes">
+    <mkdir dir="${author.output.dir}"/>
+    <javac2 destdir="${author.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.author}/javac">
+      <compilerarg line="${compiler.args.author}"/>
+      <bootclasspath refid="author.module.bootclasspath"/>
+      <classpath refid="author.module.production.classpath"/>
+      <src refid="author.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.author"/>
+    </javac2>
+    
+    <copy todir="${author.output.dir}">
+      <fileset dir="${module.author.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.author.tests" depends="register.custom.compilers,compile.module.author.production" description="compile module author; test classes" unless="skip.tests">
+    <mkdir dir="${author.testoutput.dir}"/>
+    <javac2 destdir="${author.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.author}/javac">
+      <compilerarg line="${compiler.args.author}"/>
+      <bootclasspath refid="author.module.bootclasspath"/>
+      <classpath refid="author.module.classpath"/>
+      <src refid="author.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.author"/>
+    </javac2>
+    
+    <copy todir="${author.testoutput.dir}">
+      <fileset dir="${module.author.basedir}/tests">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.author" description="cleanup module">
+    <delete dir="${author.output.dir}"/>
+    <delete dir="${author.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.author" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.author" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.userstable" value="${basedir}/out/artifacts/usersTable"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.usersTable.jar" value="${artifacts.temp.dir}/usersTable.jar"/>
+  </target>
+  
+  <target name="artifact.userstable" depends="init.artifacts" description="Build &#39;usersTable&#39; artifact">
+    <property name="artifact.temp.output.userstable" value="${artifacts.temp.dir}/usersTable"/>
+    <mkdir dir="${artifact.temp.output.userstable}"/>
+    <jar destfile="${temp.jar.path.usersTable.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain"/>
+    <copy file="${temp.jar.path.usersTable.jar}" tofile="${artifact.temp.output.userstable}/usersTable.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.userstable" description="Build all artifacts">
+    <mkdir dir="${artifact.output.userstable}"/>
+    <copy todir="${artifact.output.userstable}">
+      <fileset dir="${artifact.temp.output.userstable}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
