@@ -168,10 +168,16 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
             } else {
                 user.setE_mail(user.getE_mail().trim());
             }
+            if (user.getName()==null){
+                user.setName("");
+            }
             if (user.getName().trim().length() > DbConstants.MAX_LENGTH_NAME) {
                 user.setName(user.getName().trim().substring(0, DbConstants.MAX_LENGTH_NAME));
             } else {
                 user.setName(user.getName().trim());
+            }
+            if (user.getFullName()==null){
+                user.setFullName("");
             }
             if (user.getFullName().trim().length() > DbConstants.MAX_LENGTH_FULL_NAME) {
                 user.setFullName(user.getFullName().trim().substring(0, DbConstants.MAX_LENGTH_FULL_NAME));
