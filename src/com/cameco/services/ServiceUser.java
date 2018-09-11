@@ -9,9 +9,10 @@ import com.cameco.db.InitTextStatement;
 import com.cameco.entity.User;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 
-public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Long,User>, ServiceSetup<User> {
+public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Long, User>, ServiceSetup<User> {
     private Connection connection;
     private DaoUser daoUser;
     private DtoUser dtoUser;
@@ -30,8 +31,8 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
         }
     }
 
-    private Boolean isLoginExist(User user){
-        if (user!=null){
+    private Boolean isLoginExist(User user) {
+        if (user != null) {
             try {
                 return dtoUser.isLogin(user.getLogin());
             } catch (SQLException e) {
@@ -39,12 +40,12 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
                 e.printStackTrace();
             }
         }
-            return null;
+        return null;
     }
 
     private String getPrefix(String login) {
         try {
-            return Prefix.getPrefix(login,connection);
+            return Prefix.getPrefix(login, connection);
         } catch (SQLException e) {
             System.out.println("Error PREFIX SQL.");
             e.printStackTrace();
@@ -54,11 +55,26 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
 
     public User add(User user) {
         if (user != null) {
+            if (user.getName() == null) {
+                user.setName("");
+            }
+            if (user.getFullName() == null) {
+                user.setFullName("");
+            }
+            if (user.getDateActivation() == null) {
+                user.setDateActivation(new Date(0));
+            }
+            if (user.getDateReg() == null) {
+                user.setDateReg(new Date(0));
+            }
+            if (user.getRole() == null) {
+                user.setRole(0);
+            }
             modificationLength(user);
-            if (isLoginExist(user)){
+            if (isLoginExist(user)) {
                 System.out.println("Such login exists.");
-                return user= null;
-        }else {
+                return user = null;
+            } else {
                 user.setPrefix(getPrefix(user.getLogin()));
                 startTransaction();
                 try {
@@ -89,7 +105,7 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
     }
 
     public User edit(User user) {
-        if (user != null){
+        if (user != null) {
             modificationLength(user);
             startTransaction();
             try {
@@ -103,9 +119,9 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
         return user;
     }
 
-    public User get(Long id){
+    public User get(Long id) {
         User user = null;
-        if(id!=null){
+        if (id != null) {
             startTransaction();
             try {
                 user = daoUser.get(id);
@@ -114,13 +130,13 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
                 e.printStackTrace();
             }
             commit();
-        }else {
+        } else {
             System.out.println("Error id == null");
         }
         return user;
     }
 
-    public void closeConnectionAndPrepareStatement(){
+    public void closeConnectionAndPrepareStatement() {
         try {
             connection.close();
             daoUser.closePrepareStatement();
@@ -130,9 +146,9 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
         }
     }
 
-    public User getUserFromLoginAndPassword(String login, String password){
+    public User getUserFromLoginAndPassword(String login, String password) {
         User user = null;
-        if (login!=null && password!=null) {
+        if (login != null && password != null) {
             startTransaction();
             try {
                 user = dtoUser.getUserFromLoginAndPassword(login, password);
@@ -141,7 +157,7 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
                 e.printStackTrace();
             }
             commit();
-        }else {
+        } else {
             System.out.println("Error User or Login NULL.");
         }
         return user;
@@ -150,7 +166,7 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
     @Override
     public User modificationLength(User user) {
         if (user != null) {
-            if(user.getLogin()==null){
+            if (user.getLogin() == null) {
                 user.setLogin("");
             }
             if (user.getLogin().trim().length() > DbConstants.MAX_LENGTH_LOGIN) {
@@ -168,7 +184,7 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
             } else {
                 user.setE_mail(user.getE_mail().trim());
             }
-            if (user.getName()==null){
+            if (user.getName() == null) {
                 user.setName("");
             }
             if (user.getName().trim().length() > DbConstants.MAX_LENGTH_NAME) {
@@ -176,7 +192,7 @@ public class ServiceUser extends ServiceTablesInitDrop implements DaoService<Lon
             } else {
                 user.setName(user.getName().trim());
             }
-            if (user.getFullName()==null){
+            if (user.getFullName() == null) {
                 user.setFullName("");
             }
             if (user.getFullName().trim().length() > DbConstants.MAX_LENGTH_FULL_NAME) {
